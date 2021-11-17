@@ -235,6 +235,46 @@ paths:
         200:
           description: Successfully delete a Director
 
+  /search/director:
+    get:
+      operationId: directors.search
+      tags:
+        - Directors
+      summary: Search a director by name
+      description: Search a director by name
+      parameters:
+        - name: name
+          in: query
+          description: Name for search. 
+          type: string
+          required: True
+        - name: movie
+          in: query
+          description: Format return movie data, half or full. 
+          type: string
+          required: False
+      responses:
+        200:
+          description: Successfully read director set operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Id of the director
+              name:
+                type: string
+                description: Name of the director
+              gender:
+                type: integer
+                description: Gender of the director. 1 is Female, 2 is Male, 0 is Null
+              uid:
+                type: integer
+                description: User ID of the director, uniq
+              department:
+                type: string
+                description: Department of the director
+
   #########################################################################################
   #########################################################################################
   #########################################################################################
@@ -604,3 +644,66 @@ paths:
         200:
           description: Successfully delete a Movie
 
+  /search/movie:
+    get:
+      operationId: movies.search
+      tags:
+        - Movies
+      summary: Search a movie by title
+      description: Search a movie by title
+      parameters:
+        - name: title
+          in: query
+          description: Title for search. 
+          type: string
+          required: True
+        - name: director
+          in: query
+          description: Format return director data, half or full. 
+          type: string
+          required: False
+      responses:
+        200:
+          description: Successfully read movie set operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Id of the movie
+              original_title:
+                type: string
+                description: Original title of the movie
+              budget:
+                type: integer
+                description: Budget of the movie
+              popularity:
+                type: integer
+                description: Popularity of the movie
+              release_date:
+                type: string
+                description: Release Date of the movie
+              revenue:
+                type: integer
+                description: Revenue of the movie
+              title:
+                type: string
+                description: Title of the movie
+              vote_average:
+                type: number
+                description: Vote average of the movie
+              overview:
+                type: string
+                description: Overview of the movie
+              tagline:
+                type: string
+                description: tagline of the movie
+              uid:
+                type: integer
+                description: User ID of the movie
+              director_id:
+                type: integer
+                description: Director ID of the movie
+              director_name:
+                type: string
+                description: Name of Director of the movie

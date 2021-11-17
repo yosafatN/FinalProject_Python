@@ -95,6 +95,46 @@ def read_one(director_id, movie_id):
         ).__dict__, 404
 
 
+def search(title, director=None):
+    if len(title) <= 3:
+        return Result(
+            status=False,
+            message=f"Parameter title tidak valid"
+        ).__dict__, 400
+
+    movies = (
+        Movies.query.filter(Movies.title.like(f"%{title}%")).all()
+    )
+
+    if movies is None:
+        return Result(
+            status=True,
+            message=f"Movie dengan title {title} tidak ditemukan"
+        ).__dict__, 200
+    else:
+        if director != None:
+            if validatorParamMovieDirector(director) == True:
+                if director == 'full':
+                    movie_schame = MoviesDirectorsDetailSchema(many=True)
+                elif director == 'half':
+                    movie_schame = MoviesDirectorsSchema(many=True)
+            else:
+                return Result(
+                    status=False,
+                    message=f"Parameter directory tidak valid"
+                ).__dict__, 400
+        else:
+            movie_schame = MoviesSchema(many=True)
+
+        data = movie_schame.dump(movies)
+
+        return Result(
+            status=True,
+            message="Success",
+            data=data
+        ).__dict__, 200
+
+
 def create(director_id, movie):
     '''
     Menyimpan data Movie
