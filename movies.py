@@ -96,6 +96,14 @@ def read_one(director_id, movie_id):
 
 
 def search(title, director=None):
+    '''
+    Mencari data Movie berdasarkan title
+    :param title: sebagai parameter pencari | string
+    :param director: jenis schema data director | None or 'half' or 'full'
+
+    :return: data Movie | object
+    '''
+
     if len(title) <= 3:
         return Result(
             status=False,
